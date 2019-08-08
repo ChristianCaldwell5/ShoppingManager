@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <title>Todo</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+      
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/window.js"></script>
+      
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <!-- Needed for Cordova/PhoneGap (will be a 404 during development) -->
+        <script src="cordova.js"></script>
+  </head>
+  <body ng-app="todo" ng-controller="TodoCtrl">
+      <ion-side-menus>
+            <!-- Center content -->
+            <ion-side-menu-content>
+              <ion-header-bar class="bar-dark belowStatus">
+                <button class="button button-icon padThis" ng-click="toggleProjects()">
+                  <i class="icon ion-navicon"></i>
+                </button>
+                <h1 class="title padThis">{{activeProject.title}}</h1>
+                <!-- New Task button-->
+                <button class="button button-icon padThis" ng-click="newTask()">
+                  <i class="icon ion-compose"></i>
+                </button>
+              </ion-header-bar>
+              <ion-content class="padThis" scroll="false">
+                <ion-list>
+                  <ion-item class="borderMe" ng-repeat="task in activeProject.tasks">
+                    <input type="checkbox" ng-model="task.done" ng-click="refresh(task, $index)">
+                    <span class="listItems done-{{task.done}}">{{task.title}} ({{task.amount || 'Not Specified'}}) | Note: {{task.desc || 'None Added'}}</span>
+                      
+                    <span class="glyphicon glyphicon-remove" ng-click="removeTodos(task)" style="float:right"></span>  
+                  </ion-item>
+                    <div>
+                       <span class="statusTask">{{remaining()}} of {{activeProject.tasks.length}} items left to get.</span>
+                    </div>
+                    <div>
+                        <div class="btn clearSelect" ng-click="archive()">Clear Completed</div>
+                        <div class="btn clearAll" ng-click="removeAll()">Clear All Items</div>
+                    </div>
+                </ion-list>
+              </ion-content>
+            </ion-side-menu-content>
+
+            <!-- Left menu -->
+              <ion-side-menu side="left">
+                <ion-header-bar id="belowBar" class="bar-dark belowStatus">
+                  <h1 class="title padThis">Shopping List</h1>
+                  <button class="button button-icon ion-plus padThis" ng-click="newProject()">
+                  </button>
+                </ion-header-bar>
+              <ion-content scroll="false">
+                  <ion-list class="padThis">
+                    <ion-item ng-repeat="project in projects" ng-click="selectProject(project, $index)" ng-class="{active: activeProject == project}">
+                      {{project.title}} List
+                        <span class="glyphicon glyphicon-remove" ng-click="removeProject(project)" style="float:right"></span> 
+                    </ion-item>
+                      <div>
+                       <span class="statusTask">{{remainingList()}} List Available </span>
+                    </div>
+                    <div>
+                        <div class="btn clearAll" ng-click="removeAllProject(project)">Clear All List</div>
+                    </div>
+                  </ion-list>
+                </ion-content>
+              </ion-side-menu>
+
+          
+          <script id="new-task.html" type="text/ng-template">
+              <div class="modal">
+
+                <!-- Modal header bar -->
+                <ion-header-bar class="bar-secondary">
+                  <h1 class="title">New Shopping Item</h1>
+                  <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
+                </ion-header-bar>
+
+                <!-- Modal content area -->
+                <ion-content>
+
+                  <form ng-submit="createTask(task)">
+                    <div class="list">
+                        <label class="item item-input">
+                            <input type="text" placeholder="Add a shopping item.*" ng-model="task.title">
+                        </label>
+                        <label class="item item-input">
+                            <input id="itemAmount" type="text" placeholder="How many do you need?*" ng-model="task.amount">
+                        </label>
+                        <label class="item item-input">
+                            <input type="text" placeholder="Provide a note, or leave this empty (ie: grape)" ng-model="task.desc">
+                        </label>
+                    </div>
+                      
+                    <div class="padding">
+                      <button type="submit" class="button button-block button-positive greenMe">Add Shopping Item</button>
+                        <span>* Indicates Required Fields.</span>
+                    </div>
+                  </form>
+
+                </ion-content>
+              </div>
+        </script>
+          
+      </ion-side-menus>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+@font-face{
+    font-family: title;
+    src: url("KoHo-Bold.ttf");
+}
+.clearAll{
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+    font-family: title, sans-serif !important;
+    color: white !important;
+    background-image: linear-gradient(to bottom right, #FF0000 , #C80000);
+    border-radius: 0px !important;
+}
+.clearSelect{
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+    font-family: title, sans-serif !important;
+    color: white !important;
+    background-image: linear-gradient(to bottom right, #00CCFF , #0099FF);
+    border-radius: 0px; !important;
+}
+.statusTask{
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+    font-family: title, sans-serif !important;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+}
+.belowStatus{
+    height: 50px !important;
+}
+#belowBar{
+    height: 50px !important;
+}
+.padThis{
+    padding: 10px !important;
+}
+.greenMe{
+    background-image: linear-gradient(to bottom right, #7FFF00 , #32CD32);
+    color: black;
+    font-weight: bold;
+}
+.listItems{
+    font-size: 15px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+.borderMe{
+    border: 2px solid black;
+}
